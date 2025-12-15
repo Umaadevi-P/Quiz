@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Van Heusen - Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        .header {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .divider {
+            height: 20px;
+            width: 1px;
+            background-color: #000;
+        }
+
+        .page-title {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .form-section {
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #d0d0d0;
+            border-radius: 30px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .google-btn:hover {
+            border-color: #031273;
+            box-shadow: 0 2px 8px rgba(3, 18, 115, 0.1);
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .required-text {
+            text-align: right;
+            font-size: 13px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #031273;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 400;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .checkbox-group a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .links {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 14px 20px;
+            background-color: #031273;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #020e5c;
+            box-shadow: 0 4px 12px rgba(3, 18, 115, 0.3);
+        }
+
+        .account-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .account-link a {
+            color: #000;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background-color: #f8f8f8;
+            padding: 40px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .info-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .info-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        footer {
+            border-top: 1px solid #e0e0e0;
+            margin-top: 80px;
+            padding: 60px 40px 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: #000;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 0.6;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">VAN HEUSEN</div>
+        <div class="divider"></div>
+        <div class="page-title" id="headerTitle">LOG IN TO VAN HEUSEN</div>
+    </header>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Login Form -->
+            <div class="form-section" id="loginForm">
+                <h1>Welcome Back</h1>
+                <p class="subtitle">Sign in with your email address and your password.</p>
+
+                <button class="google-btn">
+                    <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Sign In with Google
+                </button>
+
+                <div class="required-text">Required fields *</div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Email *</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password *</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" required>
+                        <span class="toggle-password" onclick="togglePassword('loginPassword')">👁</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginGender">Gender *</label>
+                    <select id="loginGender" required>
+                        <option value="">Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="links">
+                    <a href="#" onclick="return false">Forgot your password?</a>
+                    <a href="#" onclick="return false">Email me the link</a>
+                </div>
+
+                <button class="submit-btn" onclick="handleLogin()">Sign In</button>
+
+                <div class="account-link">
+                    Don't have a Van Heusen account?<br>
+                    <a href="#" onclick="showSignup(); return false">Create an Account</a>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="form-section hidden" id="signupForm">
+                <h1>Create Your Account</h1>
+
+                <button class="google-btn">
+                    <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Sign In with Google
+                </button>
+
+                <p class="subtitle">Create your account to have access to a more personalised experience.</p>
+                <p class="subtitle" style="margin-bottom: 10px;">Already have a Van Heusen account? <a href="#" onclick="showLogin(); return false" style="text-decoration: underline; color: #000;">Log in here.</a></p>
+
+                <div class="required-text">Required fields *</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signupEmail">Email *</label>
+                        <input type="email" id="signupEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupGender">Gender *</label>
+                        <select id="signupGender" required>
+                            <option value="">Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signupEmailConfirm">Email Confirmation *</label>
+                        <input type="email" id="signupEmailConfirm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupFirstName">First Name *</label>
+                        <input type="text" id="signupFirstName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signupPassword">Password *</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="signupPassword" required>
+                            <span class="toggle-password" onclick="togglePassword('signupPassword')">👁</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupLastName">Last Name *</label>
+                        <input type="text" id="signupLastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupDOB">Date of Birth</label>
+                    <select id="signupDOB">
+                        <option value="">Select your date of birth</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="subscribe">
+                    <label for="subscribe">Subscribe to receive Van Heusen emails.</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="privacy" required>
+                    <label for="privacy">I have read, understood and agree to the <a href="#" onclick="return false">Privacy Policy</a>. *</label>
+                </div>
+
+                <button class="submit-btn" onclick="handleSignup()">Continue</button>
+
+                <div class="note">
+                    You will receive an activation code by email to validate your account creation.
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box">
+                <div class="info-title">WHAT YOU WILL FIND IN YOUR VAN HEUSEN ACCOUNT</div>
+                <div class="info-item">
+                    <div class="info-icon">📦</div>
+                    <div>Track your orders, repairs and access your invoices</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">👤</div>
+                    <div>Manage your personal information.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div>Receive newsletters from Van Heusen</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">❤️</div>
+                    <div>Create, view and share your wishlist</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>HELP</h3>
+                <ul>
+                    <li><a href="#">A Client Advisor is available at 1800 103 9988</a></li>
+                    <li><a href="#">You can also chat or email us.</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul>
+                    <li><a href="#">Repairs</a></li>
+                    <li><a href="#">Personalisation</a></li>
+                    <li><a href="#">Art of Gifting</a></li>
+                    <li><a href="#">Download our Apps</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>ABOUT VAN HEUSEN</h3>
+                <ul>
+                    <li><a href="#">Fashion Shows</a></li>
+                    <li><a href="#">Arts & Culture</a></li>
+                    <li><a href="#">La Maison</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONNECT</h3>
+                <p><a href="#">Sign up</a> for Van Heusen emails and receive the latest news from the Maison, including exclusive online pre-launches and new collections.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function showSignup() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+            document.getElementById('headerTitle').textContent = 'VAN HEUSEN ACCOUNT CREATION';
+        }
+
+        function showLogin() {
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('headerTitle').textContent = 'LOG IN TO VAN HEUSEN';
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const gender = document.getElementById('loginGender').value;
+
+            if (!email || !password || !gender) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Store gender for next page
+            sessionStorage.setItem('userGender', gender);
+            sessionStorage.setItem('userEmail', email);
+            
+            alert(`Login successful! Gender: ${gender}\nThis will determine the next page experience.`);
+            // Navigate to gender-specific page here
+        }
+
+        function handleSignup() {
+            const email = document.getElementById('signupEmail').value;
+            const emailConfirm = document.getElementById('signupEmailConfirm').value;
+            const password = document.getElementById('signupPassword').value;
+            const firstName = document.getElementById('signupFirstName').value;
+            const lastName = document.getElementById('signupLastName').value;
+            const gender = document.getElementById('signupGender').value;
+            const privacy = document.getElementById('privacy').checked;
+
+            if (!email || !emailConfirm || !password || !firstName || !lastName || !gender) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (email !== emailConfirm) {
+                alert('Email addresses do not match');
+                return;
+            }
+
+            if (!privacy) {
+                alert('Please agree to the Privacy Policy');
+                return;
+            }
+
+            // Store gender for next page
+            sessionStorage.setItem('userGender', gender);
+            sessionStorage.setItem('userEmail', email);
+            sessionStorage.setItem('userName', firstName);
+            
+            alert(`Account created! Gender: ${gender}\nAn activation code will be sent to your email.`);
+            // Navigate to gender-specific page here
+        }
+
+        // Populate date of birth dropdown (optional)
+        window.addEventListener('DOMContentLoaded', function() {
+            const dobSelect = document.getElementById('signupDOB');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 100; year--) {
+                for (let month = 1; month <= 12; month++) {
+                    const daysInMonth = new Date(year, month, 0).getDate();
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        const dateStr = `${month}/${day}/${year}`;
+                        const option = document.createElement('option');
+                        option.value = dateStr;
+                        option.textContent = dateStr;
+                        if (year === currentYear && month === 1 && day === 1) {
+                            dobSelect.appendChild(option);
+                            break;
+                        }
+                    }
+                    if (year === currentYear && month === 1) break;
+                }
+                if (year === currentYear) break;
+            }
+        });
+    </script>
+</body>
+</html>
