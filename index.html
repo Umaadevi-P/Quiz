@@ -511,37 +511,42 @@
             div.appendChild(img);
             return div;
         }
-        
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled
+        }
+
         // Function to populate a track with images (duplicated for seamless loop)
         function populateTrack(trackId, imageFiles, isReversed = false) {
             const track = document.getElementById(trackId);
-            
-            // Clear track first
             track.innerHTML = '';
             
-            // Create array of images (reversed if needed)
-            const imagesToUse = isReversed ? [...imageFiles].reverse() : imageFiles;
-            
-            // Add images twice for seamless looping
+            // Shuffle uniquely per column
+            let imagesToUse = shuffleArray(imageFiles);
+            // Reverse only AFTER shuffle if needed
+            if (isReversed) {
+                imagesToUse.reverse();
+            }
+
+    // Duplicate for seamless scrolling
             for (let i = 0; i < 2; i++) {
                 imagesToUse.forEach(imageFile => {
                     track.appendChild(createImageElement(imageFile));
                 });
             }
         }
+
         
         // Initialize all tracks when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // Populate track 1 (leftmost) with images 1-7 (normal order)
             populateTrack('track1', imageFiles1);
-            
-            // Populate track 2 (left center) with images 8-14 (normal order)
             populateTrack('track2', imageFiles2);
-            
-            // Populate track 3 (right center) with images 1-7 (reversed order)
             populateTrack('track3', imageFiles1, true);
-            
-            // Populate track 4 (rightmost) with images 8-14 (reversed order)
             populateTrack('track4', imageFiles2, true);
             
             // Add click event to Start button
