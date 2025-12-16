@@ -1182,27 +1182,6 @@
              sessionStorage.setItem('userData', JSON.stringify(userData));
              window.location.href = 'quiz-start.html';
 }
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'next-page.html'; // Change to your actual next page URL
-            
-            // Add user data as hidden inputs
-            for (const key in userData) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = userData[key];
-                form.appendChild(input);
-            }
-            
-            // Add to document and submit
-            document.body.appendChild(form);
-            form.submit();
-            
-            // Alternative: Use URL parameters
-            // const params = new URLSearchParams(userData).toString();
-            // window.location.href = `next-page.html?${params}`;
-        }
 
         // Real-time email validation
         document.getElementById('loginEmail').addEventListener('blur', function() {
