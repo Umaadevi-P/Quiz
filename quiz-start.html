@@ -561,21 +561,19 @@
                     btnText.innerHTML = '<i class="fas fa-check"></i> Ready!';
                     
                     setTimeout(() => {
-                        // Navigate to the next page (questionnaire)
-                        // You can change this URL to your actual questionnaire page
-                        window.location.href = "style-quiz.html";
-                    }, 800);
+    // Navigate to the quiz page
+    window.location.href = "quiz.html";
+}, 800);
                 }, 1000);
             });
             
             // Add click event to Skip link
             const skipLink = document.getElementById('skipLink');
             skipLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Navigate to dashboard or home page
-                // You can change this URL to your actual destination
-                window.location.href = "dashboard.html";
-            });
+    e.preventDefault();
+    // Navigate to completion page if they skip
+    window.location.href = "completion.html";
+});
             
             // Ensure animations continue even when tab is not active
             document.addEventListener('visibilitychange', function() {
