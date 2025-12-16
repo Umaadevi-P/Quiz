@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÉLAN Society - Style Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        .quiz-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #000;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            margin: 0 40px;
+            height: 4px;
+            background-color: #f0f0f0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #031273;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .skip-btn {
+            background: none;
+            border: 1px solid #d0d0d0;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .skip-btn:hover {
+            border-color: #031273;
+            color: #031273;
+        }
+
+        .question-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .question-number {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .question-subtext {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 50px;
+        }
+
+        .options-container.option-count-4 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .options-container.option-count-5 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .options-container.option-count-6 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            border-color: #031273;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(3, 18, 115, 0.1);
+        }
+
+        .option.selected {
+            border-color: #031273;
+            background-color: rgba(3, 18, 115, 0.05);
+        }
+
+        .option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 24px;
+            height: 24px;
+            background-color: #031273;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Image option styles - REDUCED SIZE */
+        .option-image {
+            width: 85%;
+            aspect-ratio: 2/3;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .option-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .option-text {
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Color option styles (Q2) */
+        .color-option {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .color-option::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                from 0deg,
+                #1a1a1a 0deg 60deg,
+                #36454F 60deg 120deg,
+                #fffff0 120deg 180deg,
+                #F5F5DC 180deg 240deg,
+                #8B4513 240deg 300deg,
+                #556B2F 300deg 360deg
+            );
+            border-radius: 50%;
+        }
+
+        .color-option.color-1::before {
+            background: conic-gradient(
+                from 0deg,
+                #1a1a1a 0deg 180deg,
+                #36454F 180deg 360deg
+            );
+        }
+
+        .color-option.color-2::before {
+            background: conic-gradient(
+                from 0deg,
+                #000080 0deg 120deg,
+                #1e90ff 120deg 240deg,
+                #87ceeb 240deg 360deg
+            );
+        }
+
+        .color-option.color-3::before {
+            background: conic-gradient(
+                from 0deg,
+                #ffffff 0deg 180deg,
+                #F5F5DC 180deg 360deg
+            );
+        }
+
+        .color-option.color-4::before {
+            background: conic-gradient(
+                from 0deg,
+                #8B4513 0deg 120deg,
+                #D2691E 120deg 240deg,
+                #F4A460 240deg 360deg
+            );
+        }
+
+        .color-option.color-5::before {
+            background: conic-gradient(
+                from 0deg,
+                #556B2F 0deg 180deg,
+                #6B8E23 180deg 360deg
+            );
+        }
+
+        .color-option.color-6::before {
+            background: conic-gradient(
+                from 0deg,
+                #8B0000 0deg 180deg,
+                #B22222 180deg 360deg
+            );
+        }
+
+        /* Text option styles */
+        .option-icon {
+            font-size: 2rem;
+            color: #031273;
+            margin-bottom: 15px;
+        }
+
+        /* Slider styles (Q5) - CENTERED */
+        .slider-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 50px;
+        }
+
+        .slider-track {
+            position: relative;
+            height: 6px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            margin: 60px 0 80px;
+        }
+
+        .slider-points {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            display: flex;
+        }
+
+        .slider-points::before {
+            content: '';
+            flex: 1;
+        }
+
+        .slider-points::after {
+            content: '';
+            flex: 1;
+        }
+
+        .slider-point {
+            width: 32px;
+            height: 32px;
+            background-color: white;
+            border: 3px solid #d0d0d0;
+            border-radius: 50%;
+            position: relative;
+            top: -13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+            margin: 0 40px;
+        }
+
+        .slider-point:hover {
+            transform: scale(1.1);
+            border-color: #031273;
+        }
+
+        .slider-point.selected {
+            background-color: #031273;
+            border-color: #031273;
+            transform: scale(1.3);
+            box-shadow: 0 0 0 3px rgba(3, 18, 115, 0.12);
+        }
+
+        .slider-labels {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .slider-labels::before {
+            content: '';
+            flex: 1;
+        }
+
+        .slider-labels::after {
+            content: '';
+            flex: 1;
+        }
+
+        .slider-label {
+            text-align: center;
+            width: 150px;
+            margin: 0 40px;
+        }
+
+        .slider-label .icon {
+            font-size: 2rem;
+            color: #666;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .slider-label.selected .icon {
+            color: #031273;
+            transform: scale(1.2);
+        }
+
+        .slider-label .text {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .slider-label.selected .text {
+            color: #031273;
+            font-weight: 600;
+        }
+
+        /* Price cards */
+        .price-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        .price-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #031273;
+            margin-bottom: 10px;
+        }
+
+        .price-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Figtree', sans-serif;
+            min-width: 140px;
+        }
+
+        .prev-btn {
+            background-color: transparent;
+            color: #031273;
+            border: 2px solid #031273;
+        }
+
+        .prev-btn:hover:not(:disabled) {
+            background-color: rgba(3, 18, 115, 0.05);
+        }
+
+        .prev-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .next-btn {
+            background-color: #031273;
+            color: white;
+            border: 2px solid #031273;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            background-color: transparent;
+            color: #031273;
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .finish-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: 2px solid #2e7d32;
+        }
+
+        .finish-btn:hover:not(:disabled) {
+            background-color: transparent;
+            color: #2e7d32;
+        }
+
+        .selected-count {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .options-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .options-container.option-count-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .options-container.option-count-6 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .slider-container {
+                max-width: 700px;
+            }
+            
+            .slider-point {
+                margin: 0 25px;
+            }
+            
+            .slider-label {
+                width: 120px;
+                margin: 0 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 20px 15px;
+            }
+            
+            .options-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .options-container.option-count-4,
+            .options-container.option-count-5,
+            .options-container.option-count-6 {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-subtext {
+                font-size: 1rem;
+            }
+            
+            .option {
+                padding: 20px 15px;
+                min-height: 120px;
+            }
+            
+            .color-option {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .slider-container {
+                max-width: 500px;
+                margin-bottom: 30px;
+            }
+            
+            .slider-track {
+                margin: 40px 0 60px;
+            }
+            
+            .slider-point {
+                margin: 0 15px;
+                width: 28px;
+                height: 28px;
+            }
+            
+            .slider-label {
+                width: 90px;
+                margin: 0 15px;
+            }
+            
+            .slider-label .icon {
+                font-size: 1.5rem;
+            }
+            
+            .nav-btn {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .progress-bar {
+                margin: 10px 0;
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .question-subtext {
+                font-size: 0.9rem;
+                margin-bottom: 30px;
+            }
+            
+            .slider-container {
+                max-width: 300px;
+            }
+            
+            .slider-point {
+                margin: 0 8px;
+                width: 24px;
+                height: 24px;
+            }
+            
+            .slider-label {
+                width: 70px;
+                margin: 0 8px;
+            }
+            
+            .slider-label .icon {
+                font-size: 1.2rem;
+            }
+            
+            .slider-label .text {
+                font-size: 0.8rem;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container" id="quizContainer">
+        <!-- Quiz header with progress -->
+        <div class="quiz-header">
+            <div class="logo">ÉLAN SOCIETY</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <button class="skip-btn" id="skipBtn">Skip</button>
+        </div>
+
+        <!-- Question containers will be dynamically inserted here -->
+        <div class="question-container" id="questionContainer"></div>
+
+        <!-- Navigation buttons -->
+        <div class="navigation" id="navigation">
+            <button class="nav-btn prev-btn" id="prevBtn" disabled>Previous</button>
+            <button class="nav-btn next-btn" id="nextBtn" disabled>Next</button>
+        </div>
+    </div>
+
+    <script>
+        // Get gender from sessionStorage (set during signup)
+        const userGender = sessionStorage.getItem('userGender') || 'female';
+        const imageBasePath = userGender === 'male' ? 'assets/Male/' : 'assets/Female/';
+        
+        // Base questions that are common or can be reused
+        const commonQuestions = {
+            // Q2 - Colors (same for both genders)
+            q2: {
+                title: "Pick the colors you naturally reach for",
+                subtext: "These help us match shades that suit you best.",
+                type: "color",
+                minSelections: 1,
+                maxSelections: 3,
+                options: [
+                    { text: "Black & Charcoal", colorClass: "color-1" },
+                    { text: "Navy & Blues", colorClass: "color-2" },
+                    { text: "Whites & Beiges", colorClass: "color-3" },
+                    { text: "Browns & Earth tones", colorClass: "color-4" },
+                    { text: "Greens & Olives", colorClass: "color-5" },
+                    { text: "Reds & Maroons", colorClass: "color-6" }
+                ]
+            },
+            
+            // Q3 - Fit (same for both genders)
+            q3: {
+                title: "How should your clothes feel on your body?",
+                subtext: "",
+                type: "text",
+                minSelections: 1,
+                maxSelections: 1,
+                options: [
+                    { text: "Slim & Sharp", icon: "fa-compress-alt" },
+                    { text: "Comfortable, Not Tight", icon: "fa-user-check" },
+                    { text: "Relaxed & Roomy", icon: "fa-tshirt" },
+                    { text: "Depends On The Occasion", icon: "fa-calendar-alt" }
+                ]
+            },
+            
+            // Q8 from female (What matters MOST) - becomes Q5 for male
+            q8_female: {
+                title: "What matters MOST when buying clothes?",
+                subtext: "",
+                type: "text",
+                minSelections: 1,
+                maxSelections: 1,
+                options: [
+                    { text: "Price & value", icon: "fa-tag" },
+                    { text: "Fit & comfort", icon: "fa-user" },
+                    { text: "Style & look", icon: "fa-palette" },
+                    { text: "Brand", icon: "fa-copyright" },
+                    { text: "Trend relevance", icon: "fa-chart-line" }
+                ]
+            },
+            
+            // Q9 from female (Budget) - becomes Q6 for male
+            q9_female: {
+                title: "Your usual budget range (per item)",
+                subtext: "",
+                type: "price",
+                minSelections: 1,
+                maxSelections: 1,
+                options: [
+                    { text: "₹800 – ₹1,200", amount: "₹800-1.2K" },
+                    { text: "₹1,200 – ₹2,000", amount: "₹1.2-2K" },
+                    { text: "₹2,000 – ₹3,500", amount: "₹2-3.5K" },
+                    { text: "I decide based on the item", amount: "Flexible" }
+                ]
+            },
+            
+            // Q10 from female (AI stylist) - becomes Q7 for male
+            q10_female: {
+                title: "How do you want your AI stylist to help you?",
+                subtext: "",
+                type: "text",
+                minSelections: 1,
+                maxSelections: 1,
+                options: [
+                    { text: "Tell me what suits me best", icon: "fa-star" },
+                    { text: "Help me build full outfits", icon: "fa-layer-group" },
+                    { text: "Save time with quick picks", icon: "fa-clock" },
+                    { text: "Learn my taste over time", icon: "fa-graduation-cap" }
+                ]
+            }
+        };
+
+        // Gender-specific question configurations
+        const femaleQuestions = [
+            {
+                id: 1,
+                title: "Which outfits feel most like YOU?",
+                subtext: "Don't overthink it. Go with what feels natural.",
+                type: "image",
+                minSelections: 1,
+                maxSelections: 3,
+                options: [
+                    { text: "Smart Casual", image: "1-1.png" },
+                    { text: "Dresses", image: "1-2.png" },
+                    { text: "Casual Wear", image: "1-3.png" },
+                    { text: "Ethnic Wear", image: "1-4.png" },
+                    { text: "Co-ord Sets", image: "1-5.png" },
+                    { text: "Mixed Styles", image: "1-6.png" }
+                ]
+            },
+            commonQuestions.q2,
+            commonQuestions.q3,
+            {
+                id: 4,
+                title: "What do you usually shop for?",
+                subtext: "We'll prioritize these categories.",
+                type: "image",
+                minSelections: 1,
+                maxSelections: 3,
+                options: [
+                    { text: "Office/Formal Wear", image: "4-1.png" },
+                    { text: "Party & Occasion Wear", image: "4-2.png" },
+                    { text: "Everyday Casuals", image: "4-3.png" },
+                    { text: "Seasonal Essentials", image: "4-4.png" },
+                    { text: "Bottom Wear Focus", image: "4-5.png" }
+                ]
+            },
+            {
+                id: 5,
+                title: "How adventurous are you with fashion?",
+                subtext: "",
+                type: "slider",
+                minSelections: 1,
+                maxSelections: 1,
+                options: [
+                    { text: "I Play Safe", icon: "fa-shield-alt" },
+                    { text: "Slightly Experimental", icon: "fa-lightbulb" },
+                    { text: "I Like Trying New Styles", icon: "fa-bolt" },
+                    { text: "Fashion-forward", icon: "fa-rocket" }
+                ]
+            },
+            {
+                id: 6,
+                title: "Which fabrics do you enjoy wearing?",
+                subtext: "",
+                type: "image",
+                minSelections: 1,
+                maxSelections: 3,
+                options: [
+                    { text: "Cotton", image: "6-1.png" },
+                    { text: "Denim", image: "6-2.png" },
+                    { text: "Blended Fabrics", image: "6-3.png" },
+                    { text: "Smooth/Premium Textures", image: "6-4.png" },
+                    { text: "Anything Is Fine", image: "6-5.png" }
+                ]
+            },
+            {
+                id: 7,
+                title: "When do you usually shop?",
+                subtext: "",
+                type: "text",
+                minSelections: 1,
+                maxSelections: 1,
+                options: [
+                    { text: "Planned shopping", icon: "fa-clipboard-list" },
+                    { text: "Festivals / events", icon: "fa-gifts" },
+                    { text: "When something catches my eye", icon: "fa-eye" },
+                    { text: "I browse often, buy later", icon: "fa-window-restore" }
+                ]
+            },
+            commonQuestions.q8_female,
+            commonQuestions.q9_female,
+            commonQuestions.q10_female
+        ];
+
+        const maleQuestions = [
+            {
+                id: 1,
+                title: "What do you mostly wear?",
+                subtext: "Pick what you actually wear, not what looks cool.",
+                type: "image",
+                minSelections: 1,
+                maxSelections: 3,
+                options: [
+                    { text: "Formal / Office Wear", image: "1-1.png" },
+                    { text: "Smart Casual", image: "1-2.png" },
+                    { text: "Casual Wear", image: "1-3.png" },
+                    { text: "Layered Looks", image: "1-4.png" },
+                    { text: "Occasion / Party Wear", image: "1-5.png" }
+                ]
+            },
+            commonQuestions.q2,
+            commonQuestions.q3,
+            {
+                id: 4,
+                title: "Which fabrics do you enjoy wearing?",
+                subtext: "",
+                type: "image",
+                minSelections: 1,
+                maxSelections: 3,
+                options: [
+                    { text: "Cotton", image: "4-1.png" },
+                    { text: "Denim", image: "4-2.png" },
+                    { text: "Blended Fabrics", image: "4-3.png" },
+                    { text: "Smooth/Premium Textures", image: "4-4.png" },
+                    { text: "Anything Is Fine", image: "4-5.png" }
+                ]
+            },
+            commonQuestions.q8_female, // Q5 for male
+            commonQuestions.q9_female, // Q6 for male
+            commonQuestions.q10_female // Q7 for male
+        ];
+
+        // Select the appropriate questions based on gender
+        const questions = userGender === 'male' ? maleQuestions : femaleQuestions;
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        const userSelections = Array(questions.length).fill().map(() => []);
+        let selectedOptions = [];
+
+        // DOM elements
+        const questionContainer = document.getElementById('questionContainer');
+        const progressFill = document.getElementById('progressFill');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const navigation = document.getElementById('navigation');
+        const skipBtn = document.getElementById('skipBtn');
+
+        // Initialize quiz
+        function initQuiz() {
+            updateProgress();
+            renderQuestion(currentQuestionIndex);
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        // Render question based on type
+        function renderQuestion(index) {
+            const question = questions[index];
+            selectedOptions = userSelections[index];
+            
+            // Clear container
+            questionContainer.innerHTML = '';
+            
+            // Create question header
+            const questionNumber = document.createElement('div');
+            questionNumber.className = 'question-number';
+            questionNumber.textContent = `Question ${index + 1} of ${questions.length}`;
+            
+            const questionTitle = document.createElement('h1');
+            questionTitle.textContent = question.title;
+            
+            const questionSubtext = document.createElement('p');
+            questionSubtext.className = 'question-subtext';
+            questionSubtext.textContent = question.subtext;
+            
+            questionContainer.appendChild(questionNumber);
+            questionContainer.appendChild(questionTitle);
+            questionContainer.appendChild(questionSubtext);
+            
+            // Create options container with appropriate class for option count
+            const optionsContainer = document.createElement('div');
+            const optionCount = question.options.length;
+            optionsContainer.className = `options-container option-count-${optionCount}`;
+            
+            // Render options based on question type
+            switch(question.type) {
+                case 'image':
+                    renderImageOptions(optionsContainer, question.options, index);
+                    break;
+                case 'color':
+                    renderColorOptions(optionsContainer, question.options, index);
+                    break;
+                case 'text':
+                    renderTextOptions(optionsContainer, question.options, index);
+                    break;
+                case 'slider':
+                    renderSlider(optionsContainer, question.options, index);
+                    break;
+                case 'price':
+                    renderPriceOptions(optionsContainer, question.options, index);
+                    break;
+            }
+            
+            questionContainer.appendChild(optionsContainer);
+            
+            // Add selected count display
+            const selectedCount = document.createElement('div');
+            selectedCount.className = 'selected-count';
+            selectedCount.id = 'selectedCount';
+            updateSelectedCount(selectedCount, question);
+            questionContainer.appendChild(selectedCount);
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+            
+            // Update button text for last question
+            if (index === questions.length - 1) {
+                nextBtn.innerHTML = '<span>Finish</span>';
+                nextBtn.classList.remove('next-btn');
+                nextBtn.classList.add('finish-btn');
+            } else {
+                nextBtn.innerHTML = '<span>Next</span>';
+                nextBtn.classList.remove('finish-btn');
+                nextBtn.classList.add('next-btn');
+            }
+        }
+
+        // Render image options
+        function renderImageOptions(container, options, questionIndex) {
+            options.forEach((option, optionIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = `option ${selectedOptions.includes(optionIndex) ? 'selected' : ''}`;
+                optionElement.dataset.index = optionIndex;
+                
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'option-image';
+                
+                const img = document.createElement('img');
+                img.src = `${imageBasePath}${option.image}`;
+                img.alt = option.text;
+                img.onerror = function() {
+                    // Fallback if image doesn't load
+                    this.style.display = 'none';
+                    imageDiv.style.backgroundColor = '#f5f5f5';
+                    imageDiv.style.display = 'flex';
+                    imageDiv.style.alignItems = 'center';
+                    imageDiv.style.justifyContent = 'center';
+                    imageDiv.innerHTML = `<div style="color: #999; font-size: 14px;">${option.text}</div>`;
+                };
+                
+                imageDiv.appendChild(img);
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'option-text';
+                textDiv.textContent = option.text;
+                
+                optionElement.appendChild(imageDiv);
+                optionElement.appendChild(textDiv);
+                
+                optionElement.addEventListener('click', () => toggleSelection(questionIndex, optionIndex));
+                container.appendChild(optionElement);
+            });
+        }
+
+        // Render color options
+        function renderColorOptions(container, options, questionIndex) {
+            options.forEach((option, optionIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = `option ${selectedOptions.includes(optionIndex) ? 'selected' : ''}`;
+                optionElement.dataset.index = optionIndex;
+                
+                const colorDiv = document.createElement('div');
+                colorDiv.className = `color-option ${option.colorClass}`;
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'option-text';
+                textDiv.textContent = option.text;
+                
+                optionElement.appendChild(colorDiv);
+                optionElement.appendChild(textDiv);
+                
+                optionElement.addEventListener('click', () => toggleSelection(questionIndex, optionIndex));
+                container.appendChild(optionElement);
+            });
+        }
+
+        // Render text options
+        function renderTextOptions(container, options, questionIndex) {
+            options.forEach((option, optionIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = `option ${selectedOptions.includes(optionIndex) ? 'selected' : ''}`;
+                optionElement.dataset.index = optionIndex;
+                
+                if (option.icon) {
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'option-icon';
+                    const icon = document.createElement('i');
+                    icon.className = `fas ${option.icon}`;
+                    iconDiv.appendChild(icon);
+                    optionElement.appendChild(iconDiv);
+                }
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'option-text';
+                textDiv.textContent = option.text;
+                
+                optionElement.appendChild(textDiv);
+                
+                optionElement.addEventListener('click', () => toggleSelection(questionIndex, optionIndex));
+                container.appendChild(optionElement);
+            });
+        }
+
+        // Render slider
+        function renderSlider(container, options, questionIndex) {
+            const sliderContainer = document.createElement('div');
+            sliderContainer.className = 'slider-container';
+            
+            const sliderTrack = document.createElement('div');
+            sliderTrack.className = 'slider-track';
+            
+            const sliderPoints = document.createElement('div');
+            sliderPoints.className = 'slider-points';
+            
+            const sliderLabels = document.createElement('div');
+            sliderLabels.className = 'slider-labels';
+            
+            options.forEach((option, optionIndex) => {
+                // Create slider point
+                const point = document.createElement('div');
+                point.className = `slider-point ${selectedOptions.includes(optionIndex) ? 'selected' : ''}`;
+                point.dataset.index = optionIndex;
+                point.addEventListener('click', () => {
+                    handleSliderSelection(questionIndex, optionIndex, point);
+                });
+                sliderPoints.appendChild(point);
+                
+                // Create label
+                const label = document.createElement('div');
+                label.className = `slider-label ${selectedOptions.includes(optionIndex) ? 'selected' : ''}`;
+                label.dataset.index = optionIndex;
+                
+                const icon = document.createElement('div');
+                icon.className = 'icon';
+                const iconElement = document.createElement('i');
+                iconElement.className = `fas ${option.icon}`;
+                icon.appendChild(iconElement);
+                
+                const text = document.createElement('div');
+                text.className = 'text';
+                text.textContent = option.text;
+                
+                label.appendChild(icon);
+                label.appendChild(text);
+                sliderLabels.appendChild(label);
+            });
+            
+            sliderTrack.appendChild(sliderPoints);
+            sliderContainer.appendChild(sliderTrack);
+            sliderContainer.appendChild(sliderLabels);
+            container.appendChild(sliderContainer);
+        }
+
+        // Handle slider selection
+        function handleSliderSelection(questionIndex, optionIndex, pointElement) {
+            // Clear previous selection
+            userSelections[questionIndex] = [];
+            selectedOptions = [];
+            
+            // Select this option
+            userSelections[questionIndex].push(optionIndex);
+            selectedOptions = [optionIndex];
+            
+            // Update UI
+            const points = document.querySelectorAll('.slider-point');
+            const labels = document.querySelectorAll('.slider-label');
+            
+            points.forEach((point, index) => {
+                point.classList.toggle('selected', index === optionIndex);
+            });
+            
+            labels.forEach((label, index) => {
+                label.classList.toggle('selected', index === optionIndex);
+            });
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+            
+            // Update selected count
+            const selectedCount = document.getElementById('selectedCount');
+            updateSelectedCount(selectedCount, questions[questionIndex]);
+        }
+
+        // Render price options
+        function renderPriceOptions(container, options, questionIndex) {
+            options.forEach((option, optionIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = `option price-option ${selectedOptions.includes(optionIndex) ? 'selected' : ''}`;
+                optionElement.dataset.index = optionIndex;
+                
+                const amountDiv = document.createElement('div');
+                amountDiv.className = 'price-amount';
+                amountDiv.textContent = option.amount;
+                
+                const descDiv = document.createElement('div');
+                descDiv.className = 'price-desc';
+                descDiv.textContent = option.text;
+                
+                optionElement.appendChild(amountDiv);
+                optionElement.appendChild(descDiv);
+                
+                optionElement.addEventListener('click', () => toggleSelection(questionIndex, optionIndex));
+                container.appendChild(optionElement);
+            });
+        }
+
+        // Toggle option selection
+        function toggleSelection(questionIndex, optionIndex) {
+            const question = questions[questionIndex];
+            const currentSelections = userSelections[questionIndex];
+            
+            if (currentSelections.includes(optionIndex)) {
+                // Deselect
+                const index = currentSelections.indexOf(optionIndex);
+                currentSelections.splice(index, 1);
+            } else {
+                // Select
+                if (currentSelections.length >= question.maxSelections) {
+                    // If single selection, replace
+                    if (question.maxSelections === 1) {
+                        currentSelections.length = 0;
+                    } else {
+                        return; // Can't select more
+                    }
+                }
+                currentSelections.push(optionIndex);
+            }
+            
+            // Update UI
+            renderQuestion(currentQuestionIndex);
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        // Update selected count display
+        function updateSelectedCount(element, question) {
+            const currentSelections = userSelections[currentQuestionIndex];
+            const count = currentSelections.length;
+            
+            if (question.minSelections > 0 || question.maxSelections > 1) {
+                let message = '';
+                if (question.minSelections === question.maxSelections) {
+                    message = `Select exactly ${question.minSelections} option${question.minSelections !== 1 ? 's' : ''}`;
+                } else if (question.maxSelections > 1) {
+                    message = `Select ${question.minSelections} to ${question.maxSelections} options`;
+                } else {
+                    message = `Select ${question.minSelections} option`;
+                }
+                
+                element.textContent = `${count} selected • ${message}`;
+            }
+        }
+
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            const question = questions[currentQuestionIndex];
+            const currentSelections = userSelections[currentQuestionIndex];
+            const isValid = currentSelections.length >= question.minSelections && 
+                           currentSelections.length <= question.maxSelections;
+            
+            // Enable/disable next button
+            nextBtn.disabled = !isValid;
+            
+            // Enable/disable previous button
+            prevBtn.disabled = currentQuestionIndex === 0;
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateProgress();
+                renderQuestion(currentQuestionIndex);
+            }
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                updateProgress();
+                renderQuestion(currentQuestionIndex);
+            } else {
+                // Quiz completed - redirect to completion page
+                saveQuizResults();
+                window.location.href = "completion.html";
+            }
+        }
+
+        // Skip current question
+        function skipQuestion() {
+            // Clear selections for current question
+            userSelections[currentQuestionIndex] = [];
+            
+            // Move to next question
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                updateProgress();
+                renderQuestion(currentQuestionIndex);
+            } else {
+                // If last question, complete quiz
+                saveQuizResults();
+                window.location.href = "completion.html";
+            }
+        }
+
+        // Save quiz results to sessionStorage
+        function saveQuizResults() {
+            const quizResults = {
+                gender: userGender,
+                selections: userSelections,
+                questions: questions.map(q => ({
+                    title: q.title,
+                    type: q.type
+                })),
+                timestamp: new Date().toISOString()
+            };
+            sessionStorage.setItem('quizResults', JSON.stringify(quizResults));
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevQuestion);
+        nextBtn.addEventListener('click', nextQuestion);
+        
+        skipBtn.addEventListener('click', skipQuestion);
+
+        // Initialize quiz on load
+        document.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

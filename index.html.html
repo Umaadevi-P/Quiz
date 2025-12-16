@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÉLAN Society - Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@600;700&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        .header {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #000;
+            font-family: 'Saira', sans-serif;
+        }
+
+        .divider {
+            height: 20px;
+            width: 1px;
+            background-color: #000;
+        }
+
+        .page-title {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .form-section {
+            max-width: 600px;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #d0d0d0;
+            border-radius: 30px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            margin-bottom: 30px;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .google-btn:hover {
+            box-shadow: 0 8px 20px rgba(3, 18, 115, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .required-text {
+            text-align: right;
+            font-size: 13px;
+            margin-bottom: 20px;
+            color: #666;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.3s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.5s; }
+        .form-group:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        label::after {
+            content: "*";
+            color: #666;
+            margin-left: 2px;
+        }
+
+        .optional-label::after {
+            content: "";
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: 'Figtree', sans-serif;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #031273;
+            box-shadow: 0 0 0 4px rgba(3, 18, 115, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: #031273;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            cursor: pointer;
+        }
+
+        .flatpickr-input {
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked {
+            accent-color: #031273;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 400;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label::after {
+            content: "*";
+            color: #666;
+            margin-left: 2px;
+        }
+
+        .checkbox-group label[for="subscribe"]::after {
+            content: "";
+        }
+
+        .checkbox-group a {
+            color: #000;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .checkbox-group a:hover {
+            color: #031273;
+        }
+
+        .links {
+            margin: 20px 0;
+            font-size: 14px;
+            display: flex;
+            gap: 20px;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .links a {
+            color: #000;
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #000;
+            transition: width 0.4s ease;
+        }
+
+        .links a:hover {
+            color: #031273;
+        }
+
+        .links a:hover::after {
+            width: 100%;
+        }
+
+.content-wrapper.signup-only {
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.content-wrapper.signup-only .form-section {
+    width: 100%;
+    max-width: 600px;
+}
+
+.submit-btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 20px;
+    background-color: #031273;
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Add this */
+    position: relative;
+    overflow: hidden;
+    font-family: 'Figtree', sans-serif;
+}
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            border-radius: 30px;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 1;
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: block;
+        }
+
+        .submit-btn:hover {
+            background-color: transparent;
+            border-color: #031273;
+            box-shadow: 0 8px 20px rgba(3, 18, 115, 0.15);
+        }
+
+        .submit-btn:hover::before {
+            transform: scaleY(1);
+        }
+
+        .submit-btn:hover span {
+            color: #031273;
+            font-weight: 700;
+            transform: translateY(-1px);
+        }
+
+        .account-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            animation: fadeIn 0.8s ease-out 1s both;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .account-link a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .account-link a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #000;
+            transition: width 0.4s ease;
+        }
+
+        .account-link a:hover::after {
+            width: 100%;
+        }
+
+        .info-box {
+            background-color: #f8f8f8;
+            padding: 40px;
+            border-radius: 8px;
+            margin-top: 40px;
+            animation: slideInRight 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .info-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            color: #333;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            position: relative;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            color: #031273;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 20px;
+            line-height: 1.5;
+            animation: fadeIn 0.8s ease-out;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        footer {
+            border-top: 1px solid #e0e0e0;
+            margin-top: 80px;
+            padding: 60px 40px 40px;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #333;
+            font-family: 'Saira', sans-serif;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .footer-section li::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: #031273;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section li:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-section a {
+            color: #000;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .footer-section li:hover a {
+            color: #031273;
+            transform: translateX(5px);
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .footer-section .email-link {
+            color: #000;
+            text-decoration: underline;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section .email-link:hover {
+            color: #031273;
+        }
+
+        .ship-to {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #666;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        .footer-links a:hover {
+            color: #000;
+        }
+
+        .follow-us {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .follow-us a {
+            color: #000;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .follow-us a:hover {
+            color: #031273;
+            transform: translateY(-3px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+            animation: shake 0.5s ease;
+            font-family: 'Figtree', sans-serif;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .input-error {
+            border-color: #d32f2f !important;
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.3); }
+            70% { box-shadow: 0 0 0 6px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .info-box {
+                margin-top: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .form-row .form-group {
+                margin-bottom: 24px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .footer-links a {
+                margin: 0 10px;
+            }
+
+            #signupForm input,
+            #signupForm select {
+               padding: 18px 18px;
+               height: 56px;
+               font-size: 16px;
+            }
+
+/* Slightly taller dropdown arrow spacing */
+#signupForm select {
+  background-position: right 20px center;
+}
+
+#signupForm .form-group {
+  margin-bottom: 30px;
+}
+
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ÉLAN SOCIETY</div>
+        <div class="divider"></div>
+        <div class="page-title" id="headerTitle">LOG IN TO ÉLAN SOCIETY</div>
+    </header>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Login Form -->
+            <div class="form-section" id="loginForm">
+                <h1>Welcome Back</h1>
+                <p class="subtitle">Sign in with your email address and your password.</p>
+
+                <button class="google-btn">
+                    <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Sign In with Google
+                </button>
+
+                <div class="required-text">Required fields*</div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                    <div class="error-message" id="loginEmailError">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" required>
+                        <span class="toggle-password" onclick="togglePassword('loginPassword')">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="links">
+                    <a href="#" onclick="return false">Forgot your password?</a>
+                    <a href="#" onclick="return false">Email me the link</a>
+                </div>
+
+                <button class="submit-btn" onclick="handleLogin()"><span>Sign In</span></button>
+
+                <div class="account-link">
+                    Don't have an ÉLAN Society account?<br>
+                    <a href="#" onclick="showSignup(); return false">Create an Account</a>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="form-section hidden" id="signupForm">
+                <h1>Create Your Account</h1>
+
+                <button class="google-btn">
+                    <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Sign In with Google
+                </button>
+
+                <p class="subtitle">Create your account to have access to a more personalised experience.</p>
+                <p class="subtitle" style="margin-bottom: 10px;">Already have an ÉLAN Society account? <a href="#" onclick="showLogin(); return false" style="text-decoration: underline; color: #000;">Log in here.</a></p>
+
+                <div class="required-text">Required fields*</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" required>
+                        <div class="error-message" id="signupEmailError">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupFirstName">First Name</label>
+                        <input type="text" id="signupFirstName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signupEmailConfirm">Email Confirmation</label>
+                        <input type="email" id="signupEmailConfirm" required>
+                        <div class="error-message" id="signupEmailConfirmError">Emails do not match</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupLastName">Last Name</label>
+                        <input type="text" id="signupLastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupGender">Gender</label>
+                    <select id="signupGender" required>
+                        <option value="">Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupDOB" class="optional-label">Date of Birth</label>
+                    <input type="text" id="signupDOB" class="flatpickr-input" placeholder="Select your date of birth">
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="signupPassword" required>
+                        <span class="toggle-password" onclick="togglePassword('signupPassword')">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="subscribe">
+                    <label for="subscribe">Subscribe to receive ÉLAN Society emails.</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="privacy" required>
+                    <label for="privacy">I have read, understood and agree to the <a href="#" onclick="return false">Privacy Policy</a>.</label>
+                </div>
+
+                <button class="submit-btn" onclick="handleSignup()"><span>Continue</span></button>
+
+                <div class="note">
+                    You will receive an activation code by email to validate your account creation.
+                </div>
+            </div>
+
+            <!-- Info Box (Only visible in Login) -->
+            <div class="info-box" id="infoBox">
+                <div class="info-title">WHAT YOU WILL FIND IN YOUR ÉLAN SOCIETY ACCOUNT</div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div>Track your orders, repairs and access your invoices</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>Manage your personal information.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>Receive newsletters from ÉLAN Society</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div>Create, view and share your wishlist</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>HELP</h3>
+                <ul>
+                    <li><a href="#">A Client Advisor is available at 1800 103 9988</a></li>
+                    <li><a href="#">You can also chat or email us.</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Product Care</a></li>
+                    <li><a href="#">Stores</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul>
+                    <li><a href="#">Repairs</a></li>
+                    <li><a href="#">Personalisation</a></li>
+                    <li><a href="#">Art of Gifting</a></li>
+                    <li><a href="#">Download our Apps</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>ABOUT ÉLAN SOCIETY</h3>
+                <ul>
+                    <li><a href="#">Fashion Shows</a></li>
+                    <li><a href="#">Arts & Culture</a></li>
+                    <li><a href="#">La Maison</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Latest News</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Foundation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONNECT</h3>
+                <p><a href="#" class="email-link">Sign up</a> for ÉLAN Society emails and receive the latest news from the Maison, including exclusive online pre-launches and new collections.</p>
+                <div class="follow-us">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ship-to">
+            <strong>Ship to:</strong> ▼ India
+        </div>
+        
+        <div class="footer-bottom">
+            <div>© ÉLAN Society</div>
+            <div class="footer-links">
+                <a href="#">Legal & Privacy</a>
+                <a href="#">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize date picker
+        flatpickr("#signupDOB", {
+            dateFormat: "m/d/Y",
+            maxDate: "today",
+            altInput: true,
+            altFormat: "F j, Y",
+        });
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function showSignup() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+            document.getElementById('infoBox').classList.add('hidden');
+            document.querySelector('.content-wrapper')
+                .classList.add('signup-only');
+            document.getElementById('headerTitle').textContent = 'ÉLAN SOCIETY ACCOUNT CREATION';
+            
+            const signupForm = document.getElementById('signupForm');
+            signupForm.style.animation = 'none';
+            setTimeout(() => {
+                signupForm.style.animation = 'slideInLeft 0.8s ease-out';
+            }, 10);
+        }
+
+        function showLogin() {
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('infoBox').classList.remove('hidden');
+            document.querySelector('.content-wrapper')
+                 .classList.remove('signup-only');
+            document.getElementById('headerTitle').textContent = 'LOG IN TO ÉLAN SOCIETY';
+            
+            // Add animation to login form
+            const loginForm = document.getElementById('loginForm');
+            loginForm.style.animation = 'none';
+            setTimeout(() => {
+                loginForm.style.animation = 'slideInLeft 0.8s ease-out';
+            }, 10);
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+            
+            input.classList.add('input-error');
+            error.style.display = 'block';
+            
+            // Remove error after animation
+            setTimeout(() => {
+                input.classList.remove('input-error');
+            }, 500);
+        }
+
+        function hideError(errorId) {
+            const error = document.getElementById(errorId);
+            error.style.display = 'none';
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Reset errors
+            hideError('loginEmailError');
+            
+            let isValid = true;
+
+            if (!email) {
+                showError('loginEmail', 'loginEmailError');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                showError('loginEmail', 'loginEmailError');
+                isValid = false;
+            }
+
+            if (!password) {
+                isValid = false;
+            }
+
+            if (!isValid) {
+                if (!email || !validateEmail(email)) {
+                    showError('loginEmail', 'loginEmailError');
+                }
+                alert('Please fill in all required fields correctly');
+                return;
+            }
+
+            // Store email for next page
+            sessionStorage.setItem('userEmail', email);
+            
+            // Animate success
+            const submitBtn = document.querySelector('#loginForm .submit-btn');
+            const btnText = submitBtn.querySelector('span');
+            btnText.textContent = 'Success!';
+            submitBtn.style.borderColor = '#2e7d32';
+            
+            setTimeout(() => {
+                btnText.textContent = 'Sign In';
+                submitBtn.style.borderColor = '#031273';
+                alert('Login successful!');
+                // Navigate to next page here
+                // Example: window.location.href = "dashboard.html?user=" + encodeURIComponent(email);
+            }, 1500);
+        }
+
+        function handleSignup() {
+            const email = document.getElementById('signupEmail').value;
+            const emailConfirm = document.getElementById('signupEmailConfirm').value;
+            const password = document.getElementById('signupPassword').value;
+            const firstName = document.getElementById('signupFirstName').value;
+            const lastName = document.getElementById('signupLastName').value;
+            const gender = document.getElementById('signupGender').value;
+            const privacy = document.getElementById('privacy').checked;
+
+            // Reset errors
+            hideError('signupEmailError');
+            hideError('signupEmailConfirmError');
+            
+            let isValid = true;
+
+            if (!email) {
+                showError('signupEmail', 'signupEmailError');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                showError('signupEmail', 'signupEmailError');
+                isValid = false;
+            }
+
+            if (!emailConfirm) {
+                showError('signupEmailConfirm', 'signupEmailConfirmError');
+                isValid = false;
+            } else if (email !== emailConfirm) {
+                showError('signupEmailConfirm', 'signupEmailConfirmError');
+                isValid = false;
+            }
+
+            if (!password) {
+                isValid = false;
+            }
+
+            if (!firstName) {
+                isValid = false;
+            }
+
+            if (!lastName) {
+                isValid = false;
+            }
+
+            if (!gender) {
+                isValid = false;
+            }
+
+            if (!privacy) {
+                isValid = false;
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required fields correctly');
+                return;
+            }
+
+            // Store data for next page - pass as URL parameters
+            const userData = {
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+                gender: gender
+            };
+            
+            // Store in session for next page
+            sessionStorage.setItem('userData', JSON.stringify(userData));
+            
+            // Animate success
+            const submitBtn = document.querySelector('#signupForm .submit-btn');
+            const btnText = submitBtn.querySelector('span');
+            btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+            
+            setTimeout(() => {
+                btnText.innerHTML = '<i class="fas fa-check"></i> Success!';
+                submitBtn.style.borderColor = '#2e7d32';
+                
+                setTimeout(() => {
+                    // Navigate to next page with user data
+                    redirectToNextPage(userData);
+                }, 1500);
+            }, 1000);
+        }
+
+        function redirectToNextPage(userData) {
+            // Create a form to pass data
+             sessionStorage.setItem('userGender', userData.gender);
+             sessionStorage.setItem('userData', JSON.stringify(userData));
+             window.location.href = 'quiz-start.html';
+}
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'next-page.html'; // Change to your actual next page URL
+            
+            // Add user data as hidden inputs
+            for (const key in userData) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = userData[key];
+                form.appendChild(input);
+            }
+            
+            // Add to document and submit
+            document.body.appendChild(form);
+            form.submit();
+            
+            // Alternative: Use URL parameters
+            // const params = new URLSearchParams(userData).toString();
+            // window.location.href = `next-page.html?${params}`;
+        }
+
+        // Real-time email validation
+        document.getElementById('loginEmail').addEventListener('blur', function() {
+            const email = this.value;
+            if (email && !validateEmail(email)) {
+                showError('loginEmail', 'loginEmailError');
+            } else {
+                hideError('loginEmailError');
+            }
+        });
+
+        document.getElementById('signupEmail').addEventListener('blur', function() {
+            const email = this.value;
+            if (email && !validateEmail(email)) {
+                showError('signupEmail', 'signupEmailError');
+            } else {
+                hideError('signupEmailError');
+            }
+        });
+
+        document.getElementById('signupEmailConfirm').addEventListener('blur', function() {
+            const email = document.getElementById('signupEmail').value;
+            const emailConfirm = this.value;
+            
+            if (emailConfirm && email !== emailConfirm) {
+                showError('signupEmailConfirm', 'signupEmailConfirmError');
+            } else {
+                hideError('signupEmailConfirmError');
+            }
+        });
+
+        // Add animations to form inputs on focus
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
